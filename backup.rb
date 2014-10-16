@@ -1,7 +1,6 @@
 #!/usr/bin/ruby -w
 
 require 'optparse'
-require_relative 'backup'
 
 # Config
 
@@ -57,6 +56,21 @@ end
 if options[:debug]
     p options
     p ARGV
+end
+
+class Backup
+    require 'yaml'
+    require 'logger'
+    require 'mail'
+
+    def initialize(options)
+
+        # Init Logger
+        @log    =   Logger.new(options[:logdir]+'/backup.log', 'daily')
+        @log_ext_cmds   =   Logger.new(options[:logdir]+'/ext_cmds.log', 'daily')
+
+
+    end
 end
 
 backup = Backup.new(options)
